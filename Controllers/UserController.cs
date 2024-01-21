@@ -4,6 +4,8 @@ using boxtureAssignment.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 
@@ -198,8 +200,87 @@ namespace boxtureAssignment.Controllers
                 return true;
             }
             return false;
-        } 
+        }
         #endregion
 
+        //[HttpPost("search")]
+        //[Authorize(Roles = "Admin")]
+        //public IActionResult SearchUsers(string searchRequest)
+        //{
+        //    try
+        //    {
+        //        // Validate search request or handle validation errors
+
+        //        // Retrieve users based on filters, pagination, and sorting
+        //        if(searchRequest.Length > 0)
+        //        {
+        //            return BadRequest("Invalid SearchCriteria.");
+        //        }
+        //        string regex = ".@#$%^&*()?><:;[]{}";
+        //        if (regex.Contains(searchRequest.Substring(0,1)))
+        //        {
+        //            return BadRequest("Please enter valid search criteria.");
+        //        }
+        //        var result = search(searchRequest);
+        //        if(result!=null)
+        //        {
+        //            return Ok(result);
+        //        }
+        //        return StatusCode(404, "User not found.");
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        return StatusCode(500, new { message = "Internal Server Error" });
+        //    }
+        //}
+
+        //private object search(string searchRequest)
+        //{
+        //    var res = _context.Users.Where(key => key.username.Contains(searchRequest.ToLower())).FirstOrDefault();
+        //    return res;
+        //}
+
+        [HttpPost("search")]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> SearchUsers(string searchRequest,int pageNo)
+        {
+            int pagesize = 1;
+            try
+            {
+                if (searchRequest.Length < 0)
+                {
+                    return BadRequest("Invalid SearchCriteria.");
+                }
+
+                string regex = ".@#$%^&*()?><:;[]{}";
+                if (regex.Contains(searchRequest.Substring(0, 1)))
+                {
+                    return BadRequest("Please enter valid search criteria.");
+                }
+
+                var result = await SearchAsync(searchRequest,pagesize,pageNo);
+
+                if (result != null)
+                {
+                    return Ok(result);
+                }
+                return StatusCode(404, "User not found.");
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                return StatusCode(500, new { message = "Internal Server Error" });
+            }
+        }
+
+        private async Task<object> SearchAsync(string searchRequest, int pagesize, int pageNo)
+        {
+            var res = await _context.Users
+                .Where(key => key.username.Contains(searchRequest.ToLower())).Skip((pageNo-1)*pagesize).Take(pagesize)
+                .ToListAsync();
+            return res;
+        }
     }
 }
