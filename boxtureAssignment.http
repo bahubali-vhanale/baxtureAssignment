@@ -1,0 +1,6 @@
+@boxtureAssignment_HostAddress = http://localhost:5097
+
+GET {{boxtureAssignment_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
