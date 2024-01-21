@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("boxtureAssignment")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+796758cabf716ee42b7491ed68a20b47385b14ef")]
 [assembly: System.Reflection.AssemblyProductAttribute("boxtureAssignment")]
 [assembly: System.Reflection.AssemblyTitleAttribute("boxtureAssignment")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -69,3 +69,4 @@ D:\Assignment\boxtureAssignment\obj\Debug\net8.0\boxtureAssignment.pdb
 D:\Assignment\boxtureAssignment\obj\Debug\net8.0\boxtureAssignment.genruntimeconfig.cache
 D:\Assignment\boxtureAssignment\obj\Debug\net8.0\ref\boxtureAssignment.dll
 D:\Assignment\boxtureAssignment\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Assignment\boxtureAssignment\obj\Debug\net8.0\boxtureAssignment.sourcelink.json
